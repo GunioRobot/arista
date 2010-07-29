@@ -124,7 +124,7 @@
                     1, 30
                 ], 
                 "passes": [
-                    "pass=qual quantizer=18 me=esa subme=6 ref=4 interlaced=false cabac=0 threads=0"
+                    "pass=qual quantizer=21 me=esa subme=6 ref=4 interlaced=false cabac=0 threads=0"
                 ]
             }, 
             "acodec": {
