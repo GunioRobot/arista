@@ -1,75 +1,75 @@
 {
-    "make": "Generic", 
-    "model": "Netbook", 
-    "description": "Optimized media for netbooks and small laptops", 
-    "version": "1.1", 
+    "make": "Generic",
+    "model": "Netbook",
+    "description": "Optimized media for netbooks and small laptops",
+    "version": "1.1",
     "author": {
-        "name": "Dennis van der Pool", 
+        "name": "Dennis van der Pool",
         "email": "dennisvanderpool@home.nl"
-    }, 
+    },
     "icon": "file://netbook.png",
-    "default": "Normal", 
+    "default": "Normal",
     "presets": [
         {
-            "name": "Normal", 
-            "extension": "mp4", 
-            "container": "qtmux", 
+            "name": "Normal",
+            "extension": "mp4",
+            "container": "qtmux",
             "vcodec": {
-                "name": "x264enc", 
-                "container": "qtmux", 
+                "name": "x264enc",
+                "container": "qtmux",
                 "width": [
                     320, 1024
-                ], 
+                ],
                 "height": [
                     240, 600
-                ], 
+                ],
                 "rate": [
                     1, 30
-                ], 
+                ],
                 "passes": [
                     "pass=qual quantizer=21 subme=6 cabac=0 threads=0"
                 ]
-            }, 
+            },
             "acodec": {
-                "name": "faac", 
-                "container": "qtmux", 
+                "name": "faac",
+                "container": "qtmux",
                 "width": [
                     8, 32
-                ], 
+                ],
                 "depth": [
                     8, 24
-                ], 
+                ],
                 "rate": [
                     8000, 96000
-                ], 
+                ],
                 "channels": [
                     1, 2
-                ], 
+                ],
                 "passes": [
                     "bitrate=131072 profile=LC"
                 ]
             }
         },
         {
-            "name": "Asus EeePC 1201HA - linux", 
+            "name": "Asus EeePC 1201HA - linux",
 			"author": {
-				"name": "Christian Kakesa", 
+				"name": "Christian Kakesa",
 				"email": "christian.kakesa@gmail.com"
-			}, 
-			"icon": "file://netbook-eeepc1201ha.png", 
-            "container": "avimux", 
-            "extension": "avi", 
+			},
+			"icon": "file://netbook-eeepc1201ha.png",
+            "container": "avimux",
+            "extension": "avi",
             "vcodec": {
-                "container": "avimux", 
-                "name": "xvidenc", 
+                "container": "avimux",
+                "name": "xvidenc",
                 "width": [
-                    320, 
+                    320,
                     720
-                ], 
+                ],
                 "height": [
-                    240, 
+                    240,
                     576
-                ], 
+                ],
                 "rate": [
                     1,
                     30
@@ -77,22 +77,22 @@
                 "passes": [
                     "pass=quant quantizer=5 max-bframes=0 trellis=true"
                 ]
-            }, 
+            },
             "acodec": {
-                "container": "avimux", 
-                "name": "lame", 
+                "container": "avimux",
+                "name": "lame",
                 "width": [
-                    8, 
+                    8,
                     24
-                ], 
+                ],
                 "depth": [
-                    8, 
+                    8,
                     24
-                ], 
+                ],
                 "channels": [
-                    1, 
+                    1,
                     2
-                ], 
+                ],
                 "rate": [
                     8000,
                     96000
@@ -103,45 +103,45 @@
             }
         },
         {
-             "name": "Asus EeePC 1201HA - windows", 
+             "name": "Asus EeePC 1201HA - windows",
 			"author": {
-				"name": "Christian Kakesa", 
+				"name": "Christian Kakesa",
 				"email": "christian.kakesa@gmail.com"
-			}, 
-			"icon": "file://netbook-eeepc1201ha.png", 
-			"extension": "mp4", 
-            "container": "qtmux", 
+			},
+			"icon": "file://netbook-eeepc1201ha.png",
+			"extension": "mp4",
+            "container": "qtmux",
             "vcodec": {
-                "name": "x264enc", 
-                "container": "qtmux", 
+                "name": "x264enc",
+                "container": "qtmux",
                 "width": [
                     320, 1280
-                ], 
+                ],
                 "height": [
                     240, 720
-                ], 
+                ],
                 "rate": [
                     1, 30
-                ], 
+                ],
                 "passes": [
                     "pass=qual quantizer=21 me=esa subme=6 ref=4 interlaced=false cabac=0 threads=0"
                 ]
-            }, 
+            },
             "acodec": {
-                "name": "faac", 
-                "container": "qtmux", 
+                "name": "faac",
+                "container": "qtmux",
                 "width": [
                     8, 32
-                ], 
+                ],
                 "depth": [
                     8, 24
-                ], 
+                ],
                 "rate": [
                     8000, 96000
-                ], 
+                ],
                 "channels": [
                     1, 2
-                ], 
+                ],
                 "passes": [
                     "bitrate=128000 profile=LC"
                 ]

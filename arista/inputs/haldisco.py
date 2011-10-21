@@ -6,15 +6,15 @@
     A set of tools to discover DVD-capable devices and Video4Linux devices that
     emit signals when disks that contain video are inserted or webcames / tuner
     cards are plugged in using DBus+HAL.
-    
+
     License
     -------
     Copyright 2008 - 2010 Daniel G. Taylor <dan@programmer-art.org>
-    
+
     This file is part of Arista.
 
     Arista is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as 
+    it under the terms of the GNU Lesser General Public License as
     published by the Free Software Foundation, either version 2.1 of
     the License, or (at your option) any later version.
 
@@ -45,7 +45,7 @@ class InputSource(object):
     def __init__(self, udi, interface):
         """
             Create a new input device.
-            
+
             @type udi: string
             @param udi: The HAL device identifier for this device.
             @type interface: dbus.Interface
@@ -54,12 +54,12 @@ class InputSource(object):
         self.udi = udi
         self.interface = interface
         self.product = self.interface.GetProperty("info.product")
-    
+
     @property
     def nice_label(self):
         """
             Get a nice label for this device.
-            
+
             @rtype: str
             @return: The label, in this case the product name
         """
@@ -72,44 +72,44 @@ class DVDDevice(InputSource):
     def __init__(self, udi, interface):
         """
             Create a new DVD device.
-            
+
             @type udi: string
             @param udi: The HAL device identifier for this device.
             @type interface: dbus.Interface
             @param interface: The Hal.Device DBus interface for this device.
         """
         super(DVDDevice, self).__init__(udi, interface)
-        
+
         self.video = False
         self.video_udi = ""
         self.label = ""
-    
+
     @property
     def path(self):
         """
             Get the path to this device in the filesystem.
-            
+
             @rtype: str
             @return: Path to device
         """
         return self.interface.GetProperty("block.device")
-    
+
     @property
     def media(self):
         """
             Check whether media is in the device.
-            
+
             @rtype: bool
             @return: True if media is present in the device.
         """
         return self.interface.GetProperty("storage.removable.media_available")
-    
+
     @property
     def nice_label(self, label=None):
         """
             Get a nice label that looks like "The Big Lebowski" if a video
             disk is found, otherwise the model name.
-            
+
             @type label: string
             @param label: Use this label instead of the disk label.
             @rtype: string
@@ -117,7 +117,7 @@ class DVDDevice(InputSource):
         """
         if not label:
             label = self.label
-            
+
         if label:
             words = [word.capitalize() for word in label.split("_")]
             return " ".join(words)
@@ -132,17 +132,17 @@ class V4LDevice(InputSource):
     def path(self):
         """
             Get the path to this device in the filesystem.
-            
+
             @rtype: str
             @return: Path to device
         """
         return self.interface.GetProperty("video4linux.device")
-    
+
     @property
     def version(self):
         """
             Get the Video 4 Linux version of this device.
-            
+
             @rtype: str
             @return: The version, either '1' or '2'
         """
@@ -150,29 +150,29 @@ class V4LDevice(InputSource):
 
 class InputFinder(gobject.GObject):
     """
-        An object that will find and monitor DVD-capable devices on your 
+        An object that will find and monitor DVD-capable devices on your
         machine and emit signals when video disks are inserted / removed.
-        
+
         Signals:
-        
+
          - disc-found(InputFinder, DVDDevice, label)
          - disc-lost(InputFinder, DVDDevice, label)
          - v4l-capture-found(InputFinder, V4LDevice)
          - v4l-capture-lost(InputFinder, V4LDevice)
     """
-    
+
     __gsignals__ = {
-        "disc-found": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, 
+        "disc-found": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE,
                        (gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT)),
-        "disc-lost": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, 
+        "disc-lost": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE,
                       (gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT)),
         "v4l-capture-found": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE,
                               (gobject.TYPE_PYOBJECT,)),
         "v4l-capture-lost": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE,
                              (gobject.TYPE_PYOBJECT,)),
-        
+
     }
-    
+
     def __init__(self):
         """
             Create a new DVDFinder and attach to the DBus system bus to find
@@ -183,10 +183,10 @@ class InputFinder(gobject.GObject):
         self.hal_obj = self.bus.get_object("org.freedesktop.Hal",
                                            "/org/freedesktop/Hal/Manager")
         self.hal = dbus.Interface(self.hal_obj, "org.freedesktop.Hal.Manager")
-        
+
         self.drives = {}
         self.capture_devices = {}
-        
+
         udis = self.hal.FindDeviceByCapability("storage.cdrom")
         for udi in udis:
             dev_obj = self.bus.get_object("org.freedesktop.Hal", udi)
@@ -195,7 +195,7 @@ class InputFinder(gobject.GObject):
                 #print "Found DVD drive!"
                 block = dev.GetProperty("block.device")
                 self.drives[block] = DVDDevice(udi, dev)
-        
+
         udis = self.hal.FindDeviceByCapability("volume.disc")
         for udi in udis:
             dev_obj = self.bus.get_object("org.freedesktop.Hal", udi)
@@ -208,7 +208,7 @@ class InputFinder(gobject.GObject):
                         self.drives[block].video = True
                         self.drives[block].video_udi = udi
                         self.drives[block].label = label
-        
+
         udis = self.hal.FindDeviceByCapability("video4linux")
         for udi in udis:
             dev_obj = self.bus.get_object("org.freedesktop.Hal", udi)
@@ -216,10 +216,10 @@ class InputFinder(gobject.GObject):
             if dev.QueryCapability("video4linux.video_capture"):
                 device = dev.GetProperty("video4linux.device")
                 self.capture_devices[device] = V4LDevice(udi, dev)
-        
+
         self.hal.connect_to_signal("DeviceAdded", self.device_added)
         self.hal.connect_to_signal("DeviceRemoved", self.device_removed)
-    
+
     def device_added(self, udi):
         """
             Called when a device has been added to the system. If the device
@@ -242,7 +242,7 @@ class InputFinder(gobject.GObject):
             capture_device = V4LDevice(udi, dev)
             self.capture_devices[device] = capture_device
             self.emit("v4l-capture-found", capture_device)
-    
+
     def device_removed(self, udi):
         """
             Called when a device has been removed from the signal. If the
@@ -257,7 +257,7 @@ class InputFinder(gobject.GObject):
                 drive.label = ""
                 self.emit("disc-lost", drive, label)
                 break
-        
+
         for device, capture in self.capture_devices.items():
             if capture.udi == udi:
                 self.emit("v4l-capture-lost", self.capture_devices[device])
@@ -271,23 +271,23 @@ if __name__ == "__main__":
     # have video disks in them at the moment.
     import gobject
     gobject.threads_init()
-    
+
     def found(finder, device, label):
         print device.path + ": " + label
-    
+
     def lost(finder, device, label):
         print device.path + ": " + _("Not mounted.")
-    
+
     finder = InputFinder()
     finder.connect("disc-found", found)
     finder.connect("disc-lost", lost)
-    
+
     for device, drive in finder.drives.items():
         print drive.nice_label + ": " + device
-    
+
     for device, capture in finder.capture_devices.items():
         print capture.nice_label + ": " + device
-    
+
     loop = gobject.MainLoop()
     loop.run()
 

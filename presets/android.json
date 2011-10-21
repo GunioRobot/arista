@@ -1,199 +1,199 @@
 {
-    "make": "Generic", 
-    "model": "Android Phone", 
-    "description": "Presets for all known Android phones", 
-    "version": "1.2", 
+    "make": "Generic",
+    "model": "Android Phone",
+    "description": "Presets for all known Android phones",
+    "version": "1.2",
     "author": {
-        "name": "Daniel G. Taylor", 
+        "name": "Daniel G. Taylor",
         "email": "dan@programmer-art.org"
-    }, 
-    "default": "Nexus One / Desire", 
-    "icon": "file://android.svg", 
+    },
+    "default": "Nexus One / Desire",
+    "icon": "file://android.svg",
     "presets": [
         {
-            "name": "Nexus One / Desire", 
-            "container": "mp4mux", 
-            "extension": "mp4", 
-            "icon": "file://android-nexus-one.svg", 
+            "name": "Nexus One / Desire",
+            "container": "mp4mux",
+            "extension": "mp4",
+            "icon": "file://android-nexus-one.svg",
             "vcodec": {
-                "name": "x264enc", 
-                "container": "mp4mux", 
+                "name": "x264enc",
+                "container": "mp4mux",
                 "width": [
-                    320, 
+                    320,
                     800
-                ], 
+                ],
                 "height": [
-                    240, 
+                    240,
                     480
-                ], 
+                ],
                 "rate": [
                     1,
                     30
-                ], 
+                ],
                 "passes": [
                     "pass=qual quantizer=21 me=umh subme=6 ref=3 cabac=0 threads=0"
                 ]
-            }, 
+            },
             "acodec": {
-                "name": "faac", 
-                "container": "mp4mux", 
+                "name": "faac",
+                "container": "mp4mux",
                 "width": [
-                    8, 
+                    8,
                     24
-                ], 
+                ],
                 "depth": [
-                    8, 
+                    8,
                     24
-                ], 
+                ],
                 "rate": [
                     8000,
                     96000
-                ], 
+                ],
                 "channels": [
-                    1, 
+                    1,
                     2
-                ], 
+                ],
                 "passes": [
                     "bitrate=128000 profile=LC"
                 ]
             }
         },
         {
-            "name": "Droid / Milestone", 
-            "container": "mp4mux", 
-            "extension": "mp4", 
-            "icon": "file://android-droid.png", 
+            "name": "Droid / Milestone",
+            "container": "mp4mux",
+            "extension": "mp4",
+            "icon": "file://android-droid.png",
             "vcodec": {
-                "name": "x264enc", 
-                "container": "mp4mux", 
+                "name": "x264enc",
+                "container": "mp4mux",
                 "width": [
-                    320, 
+                    320,
                     854
-                ], 
+                ],
                 "height": [
-                    240, 
+                    240,
                     480
-                ], 
+                ],
                 "rate": [
                     1,
                     30
-                ], 
+                ],
                 "passes": [
                     "pass=qual quantizer=21 me=umh subme=6 ref=3 cabac=0 threads=0"
                 ]
-            }, 
+            },
             "acodec": {
-                "name": "faac", 
-                "container": "mp4mux", 
+                "name": "faac",
+                "container": "mp4mux",
                 "width": [
-                    8, 
+                    8,
                     24
-                ], 
+                ],
                 "depth": [
-                    8, 
+                    8,
                     24
-                ], 
+                ],
                 "rate": [
                     8000,
                     96000
-                ], 
+                ],
                 "channels": [
-                    1, 
+                    1,
                     2
-                ], 
+                ],
                 "passes": [
                     "bitrate=128000 profile=LC"
                 ]
             }
         },
         {
-            "name": "Galaxy Spica / GT-I5700 / Galaxy Lite", 
+            "name": "Galaxy Spica / GT-I5700 / Galaxy Lite",
             "author": {
-				"name": "Christian Kakesa", 
+				"name": "Christian Kakesa",
 				"email": "christian.kakesa@gmail.com"
-			}, 
-			"container": "mp4mux", 
-            "extension": "mp4", 
-            "icon": "file://android-spica.png", 
+			},
+			"container": "mp4mux",
+            "extension": "mp4",
+            "icon": "file://android-spica.png",
             "vcodec": {
-                "name": "x264enc", 
-                "container": "mp4mux", 
+                "name": "x264enc",
+                "container": "mp4mux",
                 "width": [
                     320, 720
-                ], 
+                ],
                 "height": [
                     240, 480
-                ], 
+                ],
                 "rate": [
                     1, 30
-                ], 
+                ],
                 "passes": [
                     "pass=qual quantizer=21 me=umh subme=6 ref=3 interlaced=false cabac=0 threads=0"
                 ]
-            }, 
+            },
             "acodec": {
-                "name": "faac", 
-                "container": "mp4mux", 
+                "name": "faac",
+                "container": "mp4mux",
                 "width": [
                     8, 16
-                ], 
+                ],
                 "depth": [
                     8, 16
-                ], 
+                ],
                 "rate": [
                     8000, 44100
-                ], 
+                ],
                 "channels": [
                     1, 2
-                ], 
+                ],
                 "passes": [
                     "bitrate=128000 profile=LC"
                 ]
             }
         },
         {
-            "name": "G1 / Dream", 
-            "container": "mp4mux", 
-            "extension": "mp4", 
-            "icon": "file://android-g1.png", 
+            "name": "G1 / Dream",
+            "container": "mp4mux",
+            "extension": "mp4",
+            "icon": "file://android-g1.png",
             "vcodec": {
-                "name": "x264enc", 
-                "container": "mp4mux", 
+                "name": "x264enc",
+                "container": "mp4mux",
                 "width": [
-                    320, 
+                    320,
                     854
-                ], 
+                ],
                 "height": [
-                    240, 
+                    240,
                     480
-                ], 
+                ],
                 "rate": [
                     1,
                     30
-                ], 
+                ],
                 "passes": [
                     "pass=qual quantizer=21 me=umh subme=6 ref=3 cabac=0 threads=0"
                 ]
-            }, 
+            },
             "acodec": {
-                "name": "faac", 
-                "container": "mp4mux", 
+                "name": "faac",
+                "container": "mp4mux",
                 "width": [
-                    8, 
+                    8,
                     24
-                ], 
+                ],
                 "depth": [
-                    8, 
+                    8,
                     24
-                ], 
+                ],
                 "rate": [
                     8000,
                     96000
-                ], 
+                ],
                 "channels": [
-                    1, 
+                    1,
                     2
-                ], 
+                ],
                 "passes": [
                     "bitrate=128000 profile=LC"
                 ]

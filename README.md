@@ -1,7 +1,7 @@
 Arista Transcoder 0.9.5
 =======================
-A simple preset-based transcoder for the GNOME Desktop and a small script for 
-terminal-based transcoding. Settings are chosen based on output device and 
+A simple preset-based transcoder for the GNOME Desktop and a small script for
+terminal-based transcoding. Settings are chosen based on output device and
 quality preset.
 
  * [Official website](http://www.transcoder.org/)
@@ -36,7 +36,7 @@ Dependencies
  * gstreamer-plugins-good
  * gstreamer-plugins-bad
  * gstreamer-plugins-ugly
- 
+
 Debian users may need to install these additional dependencies:
 
  * gstreamer0.10-lame
@@ -52,20 +52,20 @@ If you are using Ubuntu 9.04 (Jaunty) or later, make sure to install with:
 
     python setup.py install --install-layout=deb
 
-Don't forget to use sudo if necessary. This will install the arista python 
-module to your python site-packages or dist-packages path, install the arista 
-programs into sys.prefix/bin, instal the nautilus extensions into 
-sys.prefix/lib/nautilus/extensions-2.0/python and install all data files into 
+Don't forget to use sudo if necessary. This will install the arista python
+module to your python site-packages or dist-packages path, install the arista
+programs into sys.prefix/bin, instal the nautilus extensions into
+sys.prefix/lib/nautilus/extensions-2.0/python and install all data files into
 sys.prefix/share/arista.
 
-You can also choose to install the Nautilus extension per-user by placing it 
+You can also choose to install the Nautilus extension per-user by placing it
 into the user's home directory under ~/.nautilus/python-extensions. Note
 that you must restart Nautilus for such changes to take effect!
 
 Usage
 -----
-There are two clients available, a graphical client using GTK+ and a terminal 
-client. The graphical client is failry self-explanatory and can be launched 
+There are two clients available, a graphical client using GTK+ and a terminal
+client. The graphical client is failry self-explanatory and can be launched
 with:
 
     arista-gtk
@@ -97,7 +97,7 @@ Sometimes it may be useful to generate a test file:
 Creating New Device Presets
 ---------------------------
 New device presets can be created via the [create preset](http://www.transcoder.org/presets/create/ "Create a new Arista Transcoder preset")
-page on the website or by specifying information about yourself and 
+page on the website or by specifying information about yourself and
 the device you wish to support along with presets that describe how to create a
 proper gstreamer pipeline to encode for the device in a JSON file.
 
@@ -105,7 +105,7 @@ Contributing
 ------------
 All active development has moved to GitHub.com. Code is managed through git and
 new bugs should be opened in the GitHub tracker. Translations are still managed
-on Launchpad using a bazaar tracking branch of this git repository. The 
+on Launchpad using a bazaar tracking branch of this git repository. The
 GitHub page is here:
 
  * [Github project page](http://github.com/danielgtaylor/arista)

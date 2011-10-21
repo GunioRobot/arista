@@ -1,8 +1,8 @@
 Arista Translations
 ===================
-All translated strings for Arista are stored here. The translation template 
-is stored in the templates directory and is used to synchronize launchpad with 
-the latest strings. If you would like to contribute to a translation, please do 
+All translated strings for Arista are stored here. The translation template
+is stored in the templates directory and is used to synchronize launchpad with
+the latest strings. If you would like to contribute to a translation, please do
 so via launchpad here:
 
     https://translations.launchpad.net/arista/trunk

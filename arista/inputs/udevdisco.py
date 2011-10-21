@@ -9,15 +9,15 @@
 
     http://github.com/nzjrs/python-gudev/blob/master/test.py
     http://www.kernel.org/pub/linux/utils/kernel/hotplug/gudev/GUdevDevice.html
-    
+
     License
     -------
     Copyright 2008 - 2010 Daniel G. Taylor <dan@programmer-art.org>
-    
+
     This file is part of Arista.
 
     Arista is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as 
+    it under the terms of the GNU Lesser General Public License as
     published by the Free Software Foundation, either version 2.1 of
     the License, or (at your option) any later version.
 
@@ -45,7 +45,7 @@ class InputSource(object):
     def __init__(self, device):
         """
             Create a new input device.
-            
+
             @type device: gudev.Device
             @param device: The device that we are using as an input source
         """
@@ -55,17 +55,17 @@ class InputSource(object):
     def nice_label(self):
         """
             Get a nice label for this device.
-            
+
             @rtype: str
             @return: The label, in this case the product name
         """
         return self.path
-    
+
     @property
     def path(self):
         """
             Get the device block in the filesystem for this device.
-            
+
             @rtype: string
             @return: The device block, such as "/dev/cdrom".
         """
@@ -79,7 +79,7 @@ class DVDDevice(InputSource):
     def media(self):
         """
             Check whether media is in the device.
-            
+
             @rtype: bool
             @return: True if media is present in the device.
         """
@@ -114,29 +114,29 @@ class V4LDevice(InputSource):
 
 class InputFinder(gobject.GObject):
     """
-        An object that will find and monitor DVD-capable devices on your 
+        An object that will find and monitor DVD-capable devices on your
         machine and emit signals when video disks are inserted / removed.
-        
+
         Signals:
-        
+
          - disc-found(InputFinder, DVDDevice, label)
          - disc-lost(InputFinder, DVDDevice, label)
          - v4l-capture-found(InputFinder, V4LDevice)
          - v4l-capture-lost(InputFinder, V4LDevice)
     """
-    
+
     __gsignals__ = {
-        "disc-found": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, 
+        "disc-found": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE,
                        (gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT)),
-        "disc-lost": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, 
+        "disc-lost": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE,
                       (gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT)),
         "v4l-capture-found": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE,
                               (gobject.TYPE_PYOBJECT,)),
         "v4l-capture-lost": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE,
                              (gobject.TYPE_PYOBJECT,)),
-        
+
     }
-    
+
     def __init__(self):
         """
             Create a new DVDFinder and attach to the udev system to listen for
@@ -145,7 +145,7 @@ class InputFinder(gobject.GObject):
         self.__gobject_init__()
 
         self.client = gudev.Client(["video4linux", "block"])
-        
+
         self.drives = {}
         self.capture_devices = {}
 
@@ -169,7 +169,7 @@ class InputFinder(gobject.GObject):
             "change": self.device_changed,
             "remove": self.device_removed,
         }.get(action, lambda x,y: None)(device, device.get_subsystem())
-    
+
     def device_added(self, device, subsystem):
         """
             Called when a device has been added to the system.
@@ -196,7 +196,7 @@ class InputFinder(gobject.GObject):
                     self.emit("disc-found", dvd_device, dvd_device.nice_label)
                 else:
                     self.emit("disc-lost", dvd_device, dvd_device.nice_label)
-    
+
     def device_removed(self, device, subsystem):
         """
             Called when a device has been removed from the system.
@@ -210,23 +210,23 @@ if __name__ == "__main__":
     # have video disks in them at the moment.
     import gobject
     gobject.threads_init()
-    
+
     def found(finder, device, label):
         print device.path + ": " + label
-    
+
     def lost(finder, device, label):
         print device.path + ": " + _("Not mounted.")
-    
+
     finder = InputFinder()
     finder.connect("disc-found", found)
     finder.connect("disc-lost", lost)
-    
+
     for device, drive in finder.drives.items():
         print drive.nice_label + ": " + device
-    
+
     for device, capture in finder.capture_devices.items():
         print capture.nice_label + " V4Lv" + str(capture.version) + ": " + device
-    
+
     loop = gobject.MainLoop()
     loop.run()
 

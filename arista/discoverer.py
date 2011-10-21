@@ -9,12 +9,12 @@
 # modify it under the terms of the GNU Lesser General Public
 # License as published by the Free Software Foundation; either
 # version 2.1 of the License, or (at your option) any later version.
-# 
+#
 # This library is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # Lesser General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -57,7 +57,7 @@ class Discoverer(gst.Pipeline):
                         None,
                         (gobject.TYPE_BOOLEAN, ))
         }
-    
+
     mimetype = None
 
     audiocaps = {}
@@ -96,9 +96,9 @@ class Discoverer(gst.Pipeline):
             changing it mean larger discovering time and bigger memory usage.
         """
         gobject.GObject.__init__(self)
-        
+
         self.filename = filename
-        
+
         self.mimetype = None
 
         self.audiocaps = {}
@@ -129,7 +129,7 @@ class Discoverer(gst.Pipeline):
 
         self._timeoutid = 0
         self._max_interleave = max_interleave
-        
+
         self.dbin = None
         if filename.startswith("dvd://"):
             parts = filename.split("@")
@@ -140,13 +140,13 @@ class Discoverer(gst.Pipeline):
                 self.src.set_property("device", parts[0][6:])
                 self.src.set_property("title", int(parts[1]))
                 self.dbin = gst.element_factory_make("decodebin2")
-                
+
                 self.add(self.src, self.dbin)
                 self.src.link(self.dbin)
-                
+
                 self.typefind = self.dbin.get_by_name("typefind")
                 self.typefind.connect("have-type", self._have_type_cb)
-                
+
                 self.dbin.connect("new-decoded-pad", self._new_decoded_pad_cb)
                 self.dbin.connect("no-more-pads", self._no_more_pads_cb)
         elif filename.startswith("v4l://"):
@@ -157,7 +157,7 @@ class Discoverer(gst.Pipeline):
             pass
         else:
             filename = "file://" + filename
-        
+
         if not self.dbin:
             # No custom source was setup, so let's use the uridecodebin!
             self.dbin = gst.element_factory_make("uridecodebin")
@@ -178,7 +178,7 @@ class Discoverer(gst.Pipeline):
             if typefind:
                 self.typefind = typefind
                 self.typefind.connect("have-type", self._have_type_cb)
-            
+
             try:
                 element.connect("unknown-type", self._unknown_type_cb)
             except TypeError:
@@ -240,7 +240,7 @@ class Discoverer(gst.Pipeline):
 
         # 3s timeout
         self._timeoutid = gobject.timeout_add(3000, self._timed_out_or_eos)
-        
+
         self.info("setting to PLAY")
         if not self.set_state(gst.STATE_PLAYING):
             self._finished()
@@ -371,13 +371,13 @@ class Discoverer(gst.Pipeline):
         #    return
         # we connect a fakesink to the new pad...
         pad.info("adding queue->fakesink")
-        fakesink = gst.element_factory_make("fakesink", "fakesink%d-%s" % 
+        fakesink = gst.element_factory_make("fakesink", "fakesink%d-%s" %
             (self.sinknumber, "audio" in caps.to_string() and "audio" or "video"))
         self.sinknumber += 1
         queue = gst.element_factory_make("queue")
-        # we want the queue to buffer up to the specified amount of data 
-        # before outputting. This enables us to cope with formats 
-        # that don't create their source pads straight away, 
+        # we want the queue to buffer up to the specified amount of data
+        # before outputting. This enables us to cope with formats
+        # that don't create their source pads straight away,
         # but instead wait for the first buffer of that stream.
         # The specified time must be greater than the input file
         # frame interleave for the discoverer to work properly.
@@ -388,7 +388,7 @@ class Discoverer(gst.Pipeline):
         # If durations are bad on the buffers (common for video decoders), we'll
         # never reach the min_threshold_time or max_size_time. So, set a
         # max size in buffers, and if reached, disable the min_threshold_time.
-        # This ensures we don't fail to discover with various ffmpeg 
+        # This ensures we don't fail to discover with various ffmpeg
         # demuxers/decoders that provide bogus (or no) duration.
         queue.props.max_size_buffers = int(100 * self._max_interleave)
         def _disable_min_threshold_cb(queue):

@@ -28,16 +28,16 @@ data_files = [
     (os.path.join("lib", "nautilus", "extensions-2.0", "python"), ["arista-nautilus.py"]),
 ]
 
-for (prefix, path) in [("arista", "presets"), 
-                        ("arista", "ui"), 
+for (prefix, path) in [("arista", "presets"),
+                        ("arista", "ui"),
                         ("", "locale")]:
     for root, dirs, files in os.walk(path):
         to_add = []
-        
+
         for filename in files:
             if filename != "README":
                 to_add.append(os.path.join(root, filename))
-            
+
         if to_add:
             data_files.append((os.path.join("share", prefix, root), to_add))
 
@@ -45,7 +45,7 @@ class AristaInstall(install_data):
     def run(self):
         # Do the normal install steps
         install_data.run(self)
-        
+
         # Byte compile any python files that were installed as data files
         for path, fnames in data_files:
             for fname in fnames:
@@ -106,7 +106,7 @@ Note: WebM support requires at least GStreamer's gst-plugins-bad-0.10.19.
     ],
     data_files = data_files,
     requires = [
-        "gtk(>=2.16)", 
+        "gtk(>=2.16)",
         "gst(>=10.22)",
         "gconf",
         "cairo",

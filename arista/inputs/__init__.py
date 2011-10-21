@@ -5,15 +5,15 @@
     =============================
     This module provides methods to discover video-capable devices and disks
     using various backends.
-    
+
     License
     -------
     Copyright 2008 - 2010 Daniel G. Taylor <dan@programmer-art.org>
-    
+
     This file is part of Arista.
 
     Arista is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as 
+    it under the terms of the GNU Lesser General Public License as
     published by the Free Software Foundation, either version 2.1 of
     the License, or (at your option) any later version.
 
